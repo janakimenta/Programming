@@ -19,20 +19,18 @@ public class Main {
         int mid = 0, min =0, max= 0;
         if(a.length < 1 || x > a[right] || x < a[left])
         {
-
             return false;
         }
         while(right >= left)
         {
             mid = (right - left)/2;
-
-            min = left + mid; //1
-            max = right - mid; //1
-            if(x > a[min]) // 2 > 4 false
+            min = left + mid; 
+            max = right - mid; 
+            if(x > a[min]) 
             {
                 left = min + 1;
             }
-            else if(x < a[max]) //2 < 4 true
+            else if(x < a[max]) 
             {
                 right = max - 1;
             }
@@ -43,6 +41,4 @@ public class Main {
                    }
         return false;
     }
-
-
 }
