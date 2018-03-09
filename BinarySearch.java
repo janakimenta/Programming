@@ -1,3 +1,6 @@
+/* In Binary Search Array should be sorted and find the mid item like n/2 and compare with mid item if serach item is greater than Mid Item then
+do the search in bottom part or else upper boundry. */
+
 public class Main {
 
     public static void main(String args[])
