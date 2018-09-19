@@ -1,0 +1,60 @@
+/* Construct a bst from given array.  */
+
+
+public class BinarySearchTree
+{
+    Node root;
+    static class Node
+    {
+        int data;
+        Node right;
+        Node left;
+        
+        public Node(int data)
+        {
+            this.data = data;
+            this.right = this.left = null;
+        }
+    }
+    
+    public BinarySearchTree()
+    {
+        root = null;
+    }
+    
+    public void insert(int val)
+    {
+        insert(root,val);
+    }
+    
+    public void insert(Node root,int val)
+    {
+        if(root == null)
+        {
+            root = new Node(val);
+            return;
+        }
+        if(val > root.data)
+        {
+            insert(root.right,val);
+        }
+         if(val < root.data)
+        {
+            insert(root.left,val);
+        }
+        
+       
+    }
+    
+    public static void main(String[] args)
+    {
+       BinarySearchTree bst = new  BinarySearchTree();
+       int[] array =  {10,2,15,7,90,19,3,2,1};
+      
+       for(int i = 0; i < array.length; i++)
+       {
+           bst.insert(array[i]);
+       }
+       
+    }
+}
