@@ -1,0 +1,243 @@
+/*Given BST of integers(both negative and positive) and given a number.Find all possible paths whose sum is equal to given number.
+This has 0(nsquare)*/
+/* Solution 1 */
+import java.util.*;
+public class BinarySearchTreePathFindingForGivenSum{
+    Node root;
+   
+    static class Node
+    {
+        int val;
+        Node right;
+        Node left;
+        
+        public Node(int val)
+        {
+            this.val = val;
+            this.right = this.left = null;
+        }
+    }
+    
+    public BinarySearchTreePathFindingForGivenSum()
+    {
+        root = null;
+    }
+    
+    public void insert(int value)
+    {
+        root = insert(root,value);
+    }
+    
+    public Node insert(Node root,int value)
+    {
+        if(root == null)
+        {
+            root = new Node(value);
+            return root;
+        }
+        if(value < root.val)
+        {
+           root.left = insert(root.left,value);
+        }
+        if(value > root.val)
+        {
+           root.right = insert(root.right,value);
+        }
+        return root;
+    }
+    
+    public void printTree()
+    {
+        printTree(root);
+    }
+    
+    public void printTree(Node root)
+    {
+        if(root != null)
+        {
+            printTree(root.left);
+            System.out.println(root.val);
+            printTree(root.right);
+        }
+    }
+    
+    public void printPath(int givenSum)
+    {
+        int[] array = new int[10];
+        
+        printPath(root,array,0,givenSum);
+    }
+    public void printPath(Node root,int[] array,int pIndex,int givenSum)
+    {
+        if(root == null)
+        {
+             
+             int sum = 0;
+            for(int i=0;i<pIndex;i++)
+            {
+                sum = sum + array[i];
+            }
+            if(sum == givenSum)
+            {
+                System.out.println(" Path with given sum "+ givenSum);
+                for(int i=0;i<pIndex;i++)
+            {
+                System.out.println(array[i]);
+            } 
+            }
+            
+            array = new int[10];
+            pIndex = 0;
+            return;
+        }
+        array[pIndex] = root.val;
+        pIndex++;
+        printPath(root.left,array,pIndex,givenSum);
+        printPath(root.right,array,pIndex,givenSum);
+        
+    }
+    
+   /* public void findPathSumsGivenNumber(int givenSum)
+    {
+        int[] array = new array[10];
+        if(root == null)
+        {
+            return 
+        }
+        //parse through each path...
+        printPath(Node root,array,0);
+        
+        
+    }*/
+
+     public static void main(String []args){
+        BinarySearchTreePathFindingForGivenSum bst = new BinarySearchTreePathFindingForGivenSum();
+        int givensum = 25;
+        bst.insert(10);
+        bst.insert(-1);
+        bst.insert(15);
+        bst.insert(8);
+        bst.insert(5);
+        bst.insert(11);
+         bst.insert(1);
+          bst.insert(9);
+        bst.printTree();
+        bst.printPath(givensum);
+        
+     }
+}
+
+/* Solution 2 calculate the sum for each node*/
+
+/*Given BST of integers(both negative and positive) and given a number.Find all possible paths whose sum is equal to given number.*/
+import java.util.*;
+public class BinarySearchTreePathFindingForGivenSum{
+    Node root;
+   
+    static class Node
+    {
+        int val;
+        Node right;
+        Node left;
+        int sum;
+        
+        public Node(int val)
+        {
+            this.val = val;
+            this.right = this.left = null;
+        }
+    }
+    
+    public BinarySearchTreePathFindingForGivenSum()
+    {
+        root = null;
+    }
+    
+    public void insert(int value)
+    {
+        root = insert(root,value);
+    }
+    
+    public Node insert(Node root,int value)
+    {
+        if(root == null)
+        {
+            root = new Node(value);
+            return root;
+        }
+        if(value < root.val)
+        {
+           root.left = insert(root.left,value);
+        }
+        if(value > root.val)
+        {
+           root.right = insert(root.right,value);
+        }
+        return root;
+    }
+    
+    public void printTree()
+    {
+        printTree(root);
+    }
+    
+    public void printTree(Node root)
+    {
+        if(root != null)
+        {
+            printTree(root.left);
+            System.out.println(root.val);
+            printTree(root.right);
+        }
+    }
+    
+    public void printPath(int givenSum)
+    {
+        int[] array = new int[10];
+       boolean foundSum = printPath(root,array,0,givenSum,0);
+       System.out.println(" foundSum " + foundSum);
+    }
+    public boolean printPath(Node root,int[] array,int pIndex,int givenSum, int sum)
+    {
+        if(root == null)
+        {
+            return (sum == 0);
+        }
+        if(sum == givenSum)
+        {
+            System.out.println(" path for sum " + givenSum);
+            for(int i =0; i < pIndex; i++)
+            {
+                  System.out.println(array[i]);
+            }
+        }
+        array[pIndex] = root.val;
+        pIndex++;
+        root.sum = sum + root.val;
+        if((givenSum - root.sum) > root.val)
+        {
+            printPath(root.right,array,pIndex,givenSum,root.sum);
+        }
+        if((givenSum - root.sum) < root.val)
+        {
+            printPath(root.left,array,pIndex,givenSum,root.sum);
+        }
+        return true;
+    }
+ 
+     public static void main(String []args){
+        BinarySearchTreePathFindingForGivenSum bst = new BinarySearchTreePathFindingForGivenSum();
+        int givensum = 9;
+        bst.insert(10);
+        bst.insert(-1);
+        bst.insert(15);
+        bst.insert(8);
+        bst.insert(5);
+        bst.insert(11);
+        bst.insert(1);
+        bst.insert(9);
+        bst.printTree();
+        bst.printPath(givensum);
+        
+     }
+}
