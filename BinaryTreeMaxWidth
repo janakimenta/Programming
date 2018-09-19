@@ -1,0 +1,70 @@
+/*Find maximum width of a binary tree. */
+/* to find maximum width of a binary tree we need to do level order traversal and declare a max variable,on every level check check width of current level is greater than max variable then update max variable wlse don't..*/
+
+import java.util.LinkedList;
+import java.util.Queue;
+public class BinaryTreeMaxWidth
+{
+    Node root;
+    static class Node
+    {
+        int data;
+        Node right;
+        Node left;
+     public Node(int val)
+     {
+         this.data = val;
+         this.right = this.left = null;
+     }
+    }
+    public BinaryTreeMaxWidth()
+    {
+        root = null;
+    }
+    
+    public static void main(String[] args)
+    {
+        BinaryTreeMaxWidth bt = new BinaryTreeMaxWidth();
+        bt.root = new Node(10);
+        bt.root.left = new Node(5);
+        bt.root.right = new Node(8);
+        bt.root.left.right = new Node(6);
+        bt.root.left.left = new Node(15);
+        bt.root.right.left = new Node(56);
+        bt.root.right.right = new Node(90);
+        int maxWidth = bt.findMaxWidth();
+        System.out.println(" Maximum Width of a binary tree is " + maxWidth);
+    }
+    
+    public int findMaxWidth()
+    {
+        
+        if(root == null)
+        {
+            return 0;
+        }
+        Queue<Node> q = new LinkedList<>();
+        int max = 0;
+        q.add(root);
+        while(!q.isEmpty())
+        {
+            int count = q.size();
+            max = Math.max(max,count);
+            while(count != 0)
+            {
+                Node temp = q.remove();
+                if(temp.left != null)
+                {
+                    q.add(temp.left);
+                }
+                if(temp.right != null)
+                {
+                    q.add(temp.right);
+                }
+                count--;
+            }
+        }
+        
+        return max;
+    }
+}
