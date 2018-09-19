@@ -1,0 +1,73 @@
+//Print path root to given node in Binary Tree. **
+
+public class BinaryTree
+{
+    Node root;
+   // int[] array = new int[10];
+    
+    static class Node
+    {
+        int val;
+        Node right;
+        Node left;
+        
+        public Node(int val)
+        {
+            this.val = val;
+            this.right = this.left = null;
+        }
+        
+    }
+    public BinaryTree()
+    {
+        root = null;
+    }
+    
+    public boolean findPath(int givenNode)
+    {
+       int[] path = new int[1000];
+      return  findPath(root,givenNode,path,0);
+    }
+    public boolean findPath(Node root,int givenNode, int[] path,int pIndex)
+    {
+        if(root == null)
+        {
+            return false;
+        }
+        path[pIndex] = root.val;
+        pIndex++;
+        if(root.val == givenNode)
+        {
+            printPath(path,pIndex);
+            return true;
+        }
+        
+        findPath(root.left,givenNode,path,pIndex);
+        findPath(root.right,givenNode,path,pIndex);
+        return false;
+    }
+    
+    public void printPath(int[] path, int pIndex)
+    {
+         System.out.println("Path is ");
+        for(int i =0;i < pIndex; i++)
+        {
+            System.out.println(path[i]);
+        }
+    }
+
+     public static void main(String []args){
+        BinaryTree bt = new BinaryTree();
+        bt.root = new Node(10);
+        bt.root.left = new Node(7); 
+        bt.root.right = new Node(5); 
+        bt.root.left.right = new Node(6); 
+        bt.root.left.right.left = new Node(1); 
+        bt.root.left.right.right = new Node(11); 
+        bt.root.right.right = new Node(9); 
+        bt.root.right.right.left = new Node(4);
+        int givenNode = 4;
+        boolean flag = bt.findPath(givenNode);
+        System.out.println(flag);
+     }
+}
