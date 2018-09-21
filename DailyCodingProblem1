@@ -1,0 +1,34 @@
+/*Given a list of numbers and a number k, return whether any two numbers from the list add up to k.
+
+For example, given [10, 15, 3, 7] and k of 17, return true since 10 + 7 is 17.*/
+import java.util.HashSet;
+public class DailyCodingProblem1{
+
+     public static void main(String []args){
+        System.out.println("Hello World");
+        int[] integerList = {10,15,3,7};
+        int givenElement = 17;
+        boolean foundElements = findTwoElementsAddToGivenNumber(integerList,givenElement);
+        
+        
+     }
+     
+     public static boolean findTwoElementsAddToGivenNumber(int[] list,int givenInt)
+     {
+         
+         HashSet<Integer> integerSet = new HashSet<Integer>();
+         if(list.length == 0) return false;
+         for(int i=0;i< list.length ; i++)
+         {
+          int diffrence = givenInt - list[i];
+          if(diffrence > 0 && integerSet.contains(diffrence) )
+          {
+              System.out.println(" found match " + diffrence + ","+ list[i]);
+              return true;
+          }
+          integerSet.add(list[i]);
+         }
+         
+         return false;
+     }
+}
