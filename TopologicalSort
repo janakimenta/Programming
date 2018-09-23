@@ -1,0 +1,72 @@
+import java.util.LinkedList;
+import java.util.Stack;
+import java.util.Iterator;
+public class TopologicalSort{
+    
+   
+        int vertices;
+        LinkedList<Integer> adj[];
+        
+         public TopologicalSort(int vertices)
+        {
+            this.vertices = vertices;
+            adj = new LinkedList[vertices];
+            for(int i=0;i< vertices ; i++)
+            adj[i] = new LinkedList<Integer>();
+        }
+  
+    
+     void add(int v,int w)
+    {
+        adj[v].add(w);
+    }
+    
+     void topologicalSort()
+    {
+        boolean visited[] = new boolean[vertices];
+        for(int i =0;i < vertices; i++)
+        visited[i] = false;
+        
+        Stack stack = new Stack();
+        
+        for(int i=0;i < vertices ; i++)
+        {
+            if(!visited[i])
+              topologicalUtil(i,stack,visited);
+        }
+        
+        while(!stack.isEmpty())
+        {
+            System.out.println(stack.pop());
+        }
+    }
+    
+    void topologicalUtil(int i, Stack stack,boolean visited[])
+    {
+        visited[i] = true;
+        
+        Iterator<Integer> itr = adj[i].iterator();
+        
+        while(itr.hasNext())
+        {
+            int n = itr.next();
+            if(!visited[n]) topologicalUtil(n,stack,visited);
+        }
+        
+        stack.push(i);
+    }
+
+     public static void main(String []args){
+        TopologicalSort g = new TopologicalSort(6);
+        g.add(0,1);
+        g.add(1,2);
+        g.add(1,3);
+        g.add(2,4);
+        g.add(3,2);
+        g.add(3,5);
+        g.add(4,5);
+        
+        g.topologicalSort();
+        
+     }
+}
