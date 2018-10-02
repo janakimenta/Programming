@@ -1,0 +1,82 @@
+
+/* check to see if given binary tree is BST
+
+Output 
+
+
+1
+2
+3
+4
+5
+IS BST
+*/
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+public class BinaryTree{
+
+
+ static class Node
+  {
+      int data;
+      Node right;
+      Node left;
+      
+      public Node(int data)
+      {
+          this.data = data;
+          this.right = null;
+          this.left = null;
+      }
+  }
+  
+  Node root;
+   Node prev;
+ 
+  public BinaryTree()
+  {
+      root = null;
+  }
+  
+  public boolean isBST()
+  {
+     
+      return isBSTUtil(root);
+  }
+  
+  public boolean isBSTUtil(Node root)
+  {
+      if(root == null) return true;
+      isBSTUtil(root.left);
+      if(prev != null && root.data < prev.data)
+      {return false;
+      }
+      System.out.println(root.data);
+      prev = root;
+      isBSTUtil(root.right);
+      
+      return true;
+      
+  }
+     public static void main(String []args){ 
+    { 
+        BinaryTree tree = new BinaryTree(); 
+        tree.root = new Node(4); 
+        tree.root.left = new Node(2); 
+        tree.root.right = new Node(5); 
+        tree.root.left.left = new Node(1); 
+        tree.root.left.right = new Node(3); 
+  
+        if (tree.isBST()) 
+            System.out.println("IS BST"); 
+        else
+            System.out.println("Not a BST"); 
+    } 
+} }
+     
+     
